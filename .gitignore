@@ -1,0 +1,10 @@
+node_modules
+pnpm-lock.yaml
+yarn.lock
+backend/dist
+backend/.env
+frontend/dist
+.env
+.DS_Store
+coverage
+.prisma

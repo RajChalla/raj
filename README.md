@@ -1,44 +1,93 @@
-# Sentiment Analysis LLM
+# FC26 Men's Gold Rare Auction Platform
 
-This project provides a minimal example of fine-tuning a pre-trained language model for sentiment analysis using the [Hugging Face Transformers](https://huggingface.co/docs/transformers) library.
+This repository hosts a full-stack real-time auction platform for FC26 Men's Gold Rare player cards. It includes:
 
-## Requirements
+- **Node.js + Express + Prisma** backend with Socket.IO and PostgreSQL
+- **React + Vite** frontend for admin and team owners
+- **Docker Compose** for local development and deployment
+- Comprehensive business logic covering auction rules, roster minimums, anti-snipe extensions, and reporting
 
-Install dependencies using the helper script. Pass your proxy URL if you are
-behind a corporate firewall:
+## Getting Started
 
-```bash
-# without a proxy
-./setup_env.sh
+### Prerequisites
 
-# or with a proxy
-./setup_env.sh http://my.proxy:3128
-```
+- Docker & Docker Compose
 
-## Training
+### Environment Setup
 
-Run `train_sentiment_model.py` to fine-tune a small model on the IMDb dataset:
+Copy the sample environment file:
 
 ```bash
-python train_sentiment_model.py --output_dir ./model
+cp .env.example .env
 ```
 
-This downloads the IMDb dataset and a pre-trained DistilBERT model, then fine-tunes the model for sentiment classification. The fine-tuned model is saved to the specified `--output_dir`.
+Update values as needed (especially `JWT_SECRET`).
 
-## Inference
-
-After training, use `predict_sentiment.py` to classify new text:
+### Launching the stack
 
 ```bash
-python predict_sentiment.py --model_dir ./model --text "I love this movie!"
+docker-compose up --build
 ```
 
-The script prints the predicted sentiment label (`positive` or `negative`).
+The services will be available at:
 
-## Proxy troubleshooting
+- Backend API: `http://localhost:4000`
+- Frontend: `http://localhost:5173`
+- PostgreSQL: `localhost:5432`
 
-Both training and inference download models and datasets from the internet.
-If you are behind a network proxy, set the standard `HTTP_PROXY` and
-`HTTPS_PROXY` environment variables so that `transformers` and `datasets`
-can access Hugging Face servers. The `setup_env.sh` script accepts the proxy
-URL as an argument to ease dependency installation.
+After the containers start, apply the database schema:
+
+```bash
+docker-compose exec api npx prisma migrate deploy
+```
+
+### Seed Data
+
+Run the seed script inside the API container to load sample Gold Rare players and demo accounts:
+
+```bash
+docker-compose run --rm api npm install
+docker-compose run --rm api npm run seed
+```
+
+(Alternatively, import your own player CSV/JSON through the admin UI.)
+
+### Demo Accounts
+
+| Role  | Email                | Password    |
+|-------|----------------------|-------------|
+| Admin | admin@example.com    | adminpass   |
+| Owner | owner1@example.com   | owner1pass  |
+| Owner | owner2@example.com   | owner2pass  |
+
+### Testing
+
+From the `backend` directory run:
+
+```bash
+npm install
+npm test
+```
+
+Tests cover base price tiers, bid validation rules, roster completion guard, and an end-to-end bidding flow.
+
+### Development Scripts
+
+- `npm run dev` in `backend`: start API with hot reload
+- `npm run dev` in `frontend`: start Vite dev server
+
+## API Overview
+
+Key endpoints include:
+
+- `POST /api/auth/login` – authenticate via email/password
+- `POST /api/players/import` – admin import of Gold Rare player catalog
+- `POST /api/auctions` – create auctions with per-team budgets
+- `POST /api/lots/:lotId/bids` – place real-time bids with server-side validation
+- `GET /api/auctions/:id/reports/teams-summary` – post-auction reporting with CSV export
+
+Refer to source code for the full list of routes and payloads.
+
+## License
+
+MIT
