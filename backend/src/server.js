@@ -274,22 +274,29 @@ router.register('GET', 'api/auctions/:id/export.csv', (req, res, { params }) => 
 
 router.register('GET', '', async (req, res) => {
   const { pathname } = parse(req.url);
-  if (pathname === '/' || pathname.startsWith('/app')) {
-    const html = await readFile(join(__dirname, '../../web/index.html'), 'utf8');
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end(html);
-    return;
-  }
+  const isHead = req.method === 'HEAD';
   if (pathname.startsWith('/app.js')) {
-    const js = await readFile(join(__dirname, '../../web/app.js'), 'utf8');
+    const js = isHead
+      ? null
+      : await readFile(join(__dirname, '../../web/app.js'), 'utf8');
     res.writeHead(200, { 'Content-Type': 'application/javascript' });
-    res.end(js);
+    res.end(isHead ? undefined : js);
     return;
   }
   if (pathname.startsWith('/styles.css')) {
-    const css = await readFile(join(__dirname, '../../web/styles.css'), 'utf8');
+    const css = isHead
+      ? null
+      : await readFile(join(__dirname, '../../web/styles.css'), 'utf8');
     res.writeHead(200, { 'Content-Type': 'text/css' });
-    res.end(css);
+    res.end(isHead ? undefined : css);
+    return;
+  }
+  if (pathname === '/' || pathname.startsWith('/app')) {
+    const html = isHead
+      ? null
+      : await readFile(join(__dirname, '../../web/index.html'), 'utf8');
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.end(isHead ? undefined : html);
     return;
   }
   sendJson(res, 404, { error: 'Not Found' });

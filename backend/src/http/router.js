@@ -8,15 +8,17 @@ export class Router {
   register(method, path, handler) {
     const parts = path.split('/').filter(Boolean);
     const params = parts.map((part) => part.startsWith(':'));
-    this.routes.push({ method, parts, params, handler });
+    const catchAll = parts.length === 0;
+    this.routes.push({ method, parts, params, handler, catchAll });
   }
 
   async handle(req, res, context) {
     const { pathname } = parse(req.url, true);
+    const method = req.method === 'HEAD' ? 'GET' : req.method;
     const segments = pathname.split('/').filter(Boolean);
     for (const route of this.routes) {
-      if (route.method !== req.method) continue;
-      if (route.parts.length !== segments.length) continue;
+      if (route.method !== method) continue;
+      if (!route.catchAll && route.parts.length !== segments.length) continue;
       const params = {};
       let match = true;
       for (let i = 0; i < route.parts.length; i++) {
