@@ -5,6 +5,7 @@ This repository contains a self-contained implementation of the FC26 Gold Rare a
 ## Features
 
 - Plain-text JSON datastore persisted to `backend/data/store.json`; no external database is required.
+- Preloaded text-file roster of the top 100 FC26 men’s Gold Rare players in `backend/data/players.json` for immediate auctioning.
 - Player import that filters for FC26 **men’s Gold Rare** cards and computes base prices from configurable tiers.
 - Auction lifecycle with queues, single active lot enforcement, bid validation, anti-snipe extensions, reserve handling, unsold marking, and manual overrides logged through the audit log.
 - Per-auction budgets, roster minimum enforcement (19 players), and override auditing.
@@ -59,6 +60,7 @@ See `.env.example` for optional overrides. The server defaults to `PORT=4000` an
 ```
 backend/
   data/             # persisted datastore
+    players.json    # top 100 FC26 Gold Rare men, used to seed the store
   src/              # backend source code
   tests/            # node:test suites
 web/                # static frontend assets

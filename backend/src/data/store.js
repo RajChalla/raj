@@ -4,10 +4,28 @@ import { fileURLToPath } from 'url';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const STORE_PATH = join(__dirname, '../../data/store.json');
+const PLAYERS_PATH = join(__dirname, '../../data/players.json');
+
+function loadSeedPlayers() {
+  if (!existsSync(PLAYERS_PATH)) {
+    return [];
+  }
+  try {
+    const raw = readFileSync(PLAYERS_PATH, 'utf8');
+    const data = JSON.parse(raw);
+    if (!Array.isArray(data)) return [];
+    return data;
+  } catch (err) {
+    console.error('Failed to load seed players', err);
+    return [];
+  }
+}
+
+const SEED_PLAYERS = loadSeedPlayers();
 
 const DEFAULT_SNAPSHOT = {
   users: [],
-  players: [],
+  players: SEED_PLAYERS,
   auctions: [],
   teams: [],
   teamBudgets: [],
@@ -28,6 +46,17 @@ const DEFAULT_SNAPSHOT = {
 
 function ensureStoreFile() {
   if (!existsSync(STORE_PATH)) {
+    writeFileSync(STORE_PATH, JSON.stringify(DEFAULT_SNAPSHOT, null, 2));
+    return;
+  }
+  const raw = readFileSync(STORE_PATH, 'utf8');
+  try {
+    const current = JSON.parse(raw);
+    if (!Array.isArray(current.players) || current.players.length === 0) {
+      current.players = SEED_PLAYERS;
+      writeFileSync(STORE_PATH, JSON.stringify(current, null, 2));
+    }
+  } catch (err) {
     writeFileSync(STORE_PATH, JSON.stringify(DEFAULT_SNAPSHOT, null, 2));
   }
 }
