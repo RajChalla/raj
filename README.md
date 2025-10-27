@@ -1,44 +1,66 @@
-# Sentiment Analysis LLM
+# FC26 Auction Platform
 
-This project provides a minimal example of fine-tuning a pre-trained language model for sentiment analysis using the [Hugging Face Transformers](https://huggingface.co/docs/transformers) library.
+This repository contains a self-contained implementation of the FC26 Gold Rare auction platform. It ships with a lightweight Node.js backend, a static frontend, offline-friendly tests, and Docker orchestration. No external package registry access is required.
 
-## Requirements
+## Features
 
-Install dependencies using the helper script. Pass your proxy URL if you are
-behind a corporate firewall:
+- Plain-text JSON datastore persisted to `backend/data/store.json`; no external database is required.
+- Player import that filters for FC26 **men’s Gold Rare** cards and computes base prices from configurable tiers.
+- Auction lifecycle with queues, single active lot enforcement, bid validation, anti-snipe extensions, reserve handling, unsold marking, and manual overrides logged through the audit log.
+- Per-auction budgets, roster minimum enforcement (19 players), and override auditing.
+- Real-time updates delivered via a minimal WebSocket implementation with `LOT_ACTIVATED`, `BID_PLACED`, `LOT_SOLD`, and `AUCTION_STATUS_CHANGED` events.
+- Admin/owner/report dashboards built with vanilla JavaScript that interact with the API and socket layer.
+- CSV export and JSON reports for highest sale and team summaries.
+- Unit and integration tests executed with the built-in `node:test` runner.
+- Docker Compose stack (`api`, `web`) requiring no package downloads.
 
-```bash
-# without a proxy
-./setup_env.sh
+## Getting Started
 
-# or with a proxy
-./setup_env.sh http://my.proxy:3128
-```
+### Prerequisites
+- Node.js 18+
 
-## Training
-
-Run `train_sentiment_model.py` to fine-tune a small model on the IMDb dataset:
-
-```bash
-python train_sentiment_model.py --output_dir ./model
-```
-
-This downloads the IMDb dataset and a pre-trained DistilBERT model, then fine-tunes the model for sentiment classification. The fine-tuned model is saved to the specified `--output_dir`.
-
-## Inference
-
-After training, use `predict_sentiment.py` to classify new text:
+### Local Development
 
 ```bash
-python predict_sentiment.py --model_dir ./model --text "I love this movie!"
+# start the API and static frontend
+cd backend
+npm start
 ```
 
-The script prints the predicted sentiment label (`positive` or `negative`).
+Open http://localhost:4000/ to access the web console.
 
-## Proxy troubleshooting
+Demo credentials are seeded automatically:
+- Admin: `admin` / `admin123`
+- Owner 1: `owner1` / `owner123`
+- Owner 2: `owner2` / `owner123`
+- Viewer: `viewer` / `viewer123`
 
-Both training and inference download models and datasets from the internet.
-If you are behind a network proxy, set the standard `HTTP_PROXY` and
-`HTTPS_PROXY` environment variables so that `transformers` and `datasets`
-can access Hugging Face servers. The `setup_env.sh` script accepts the proxy
-URL as an argument to ease dependency installation.
+### Tests
+
+```bash
+cd backend
+npm test
+```
+
+### Docker
+
+```
+docker compose up
+```
+
+The compose stack builds the API with no dependency downloads and serves the static frontend.
+
+### Environment Variables
+
+See `.env.example` for optional overrides. The server defaults to `PORT=4000` and uses `APP_SECRET` for signing JWT-like tokens.
+
+### Project Layout
+
+```
+backend/
+  data/             # persisted datastore
+  src/              # backend source code
+  tests/            # node:test suites
+web/                # static frontend assets
+```
+

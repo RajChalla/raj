@@ -1,0 +1,137 @@
+:root {
+  font-family: 'Segoe UI', sans-serif;
+  background: #0b0f1a;
+  color: #f7f9ff;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #1b2746, #05070f);
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.app__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.header-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.app__header h1 {
+  margin: 0;
+  font-size: 2.2rem;
+}
+
+.card {
+  background: rgba(15, 24, 44, 0.85);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.hidden {
+  display: none;
+}
+
+.form-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+input, textarea, button {
+  border-radius: 12px;
+  border: none;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+}
+
+input, textarea {
+  background: rgba(8, 12, 24, 0.8);
+  color: #f7f9ff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+button {
+  cursor: pointer;
+  background: linear-gradient(135deg, #2dd1ff, #7a5cff);
+  color: #05070f;
+  font-weight: 600;
+  transition: transform 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+.summary {
+  background: rgba(8, 12, 24, 0.6);
+  padding: 1rem;
+  border-radius: 12px;
+  margin-top: 1rem;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.75rem;
+  border-radius: 10px;
+  min-height: 80px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.bid-controls {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.bid-controls input {
+  flex: 1 1 140px;
+}
+
+.hint {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .app {
+    padding: 1rem;
+  }
+
+  .app__header {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+}

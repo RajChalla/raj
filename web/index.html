@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FC26 Auction Control</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app__header">
+      <h1>FC26 Auction Console</h1>
+      <div class="header-info">
+        <div id="auth-info"></div>
+        <div id="auction-info"></div>
+      </div>
+    </header>
+    <main class="app__main">
+      <section id="login-section" class="card">
+        <h2>Login</h2>
+        <form id="login-form">
+          <label>Username <input name="username" required /></label>
+          <label>Password <input name="password" type="password" required /></label>
+          <button type="submit">Sign in</button>
+        </form>
+        <p class="hint">Demo accounts: admin/admin123, owner1/owner123, owner2/owner123</p>
+      </section>
+      <section id="admin-section" class="card hidden">
+        <h2>Admin Tools</h2>
+        <div class="form-row">
+          <input id="auction-name" placeholder="Auction name" />
+          <button id="create-auction">Create Auction</button>
+          <button id="set-teams">Set Teams & Budgets</button>
+        </div>
+        <div class="form-row">
+          <textarea id="player-import" rows="4" placeholder="Paste Gold Rare player CSV"></textarea>
+          <button id="import-players">Import Players</button>
+        </div>
+        <div class="form-row">
+          <button id="queue-lots">Queue Players</button>
+          <button id="start-auction">Start</button>
+          <button id="next-lot">Activate Next Lot</button>
+          <button id="finalize-lot">Finalize Lot</button>
+        </div>
+        <div class="form-row">
+          <button id="complete-auction">Complete Auction</button>
+          <button id="override-complete">Override Complete</button>
+          <button id="download-report">Download CSV</button>
+        </div>
+        <div class="form-row">
+          <button id="refresh-summary">Refresh Summary</button>
+        </div>
+        <div class="summary">
+          <h3>Current Lot</h3>
+          <pre id="admin-lot"></pre>
+          <h3>Teams Summary</h3>
+          <pre id="admin-summary"></pre>
+        </div>
+      </section>
+      <section id="owner-section" class="card hidden">
+        <h2>Owner Console</h2>
+        <div class="form-row">
+          <button id="load-owner-state">Refresh State</button>
+        </div>
+        <div class="summary">
+          <h3>Remaining Budget</h3>
+          <p id="owner-budget">-</p>
+          <h3>Roster</h3>
+          <ul id="owner-roster"></ul>
+          <h3>Active Lot</h3>
+          <pre id="owner-lot"></pre>
+          <div class="bid-controls">
+            <input id="bid-amount" type="number" placeholder="Bid amount" />
+            <button data-inc="1000">+1k</button>
+            <button data-inc="5000">+5k</button>
+            <button data-inc="10000">+10k</button>
+            <button id="submit-bid">Submit Bid</button>
+          </div>
+          <h3>Bid History</h3>
+          <ul id="bid-history"></ul>
+        </div>
+      </section>
+      <section id="report-section" class="card hidden">
+        <h2>Reports</h2>
+        <button id="load-report">Load Reports</button>
+        <pre id="report-output"></pre>
+      </section>
+    </main>
+  </div>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      PORT: 4000
+      APP_SECRET: change-me
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./backend/data:/app/data
+      - ./web:/app/web
