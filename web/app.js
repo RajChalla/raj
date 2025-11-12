@@ -1,447 +1,339 @@
-const state = {
-  token: null,
-  user: null,
-  auctionId: localStorage.getItem('auctionId') || null,
-  teamId: localStorage.getItem('teamId') || null,
-  currentLot: null,
-  bids: []
+const players = [
+  {
+    id: 1,
+    name: "Erling Haaland",
+    club: "Manchester City",
+    nation: "Norway",
+    position: "FWD",
+    rating: 94,
+    price: 24.5,
+  },
+  {
+    id: 2,
+    name: "Kylian Mbappé",
+    club: "Paris SG",
+    nation: "France",
+    position: "FWD",
+    rating: 95,
+    price: 27.0,
+  },
+  {
+    id: 3,
+    name: "Jude Bellingham",
+    club: "Real Madrid",
+    nation: "England",
+    position: "MID",
+    rating: 93,
+    price: 21.0,
+  },
+  {
+    id: 4,
+    name: "Kevin De Bruyne",
+    club: "Manchester City",
+    nation: "Belgium",
+    position: "MID",
+    rating: 92,
+    price: 19.5,
+  },
+  {
+    id: 5,
+    name: "Vinícius Jr.",
+    club: "Real Madrid",
+    nation: "Brazil",
+    position: "FWD",
+    rating: 93,
+    price: 22.0,
+  },
+  {
+    id: 6,
+    name: "Lionel Messi",
+    club: "Inter Miami",
+    nation: "Argentina",
+    position: "FWD",
+    rating: 92,
+    price: 18.0,
+  },
+  {
+    id: 7,
+    name: "Rodri",
+    club: "Manchester City",
+    nation: "Spain",
+    position: "MID",
+    rating: 91,
+    price: 17.0,
+  },
+  {
+    id: 8,
+    name: "Declan Rice",
+    club: "Arsenal",
+    nation: "England",
+    position: "MID",
+    rating: 90,
+    price: 15.5,
+  },
+  {
+    id: 9,
+    name: "Trent Alexander-Arnold",
+    club: "Liverpool",
+    nation: "England",
+    position: "DEF",
+    rating: 89,
+    price: 13.0,
+  },
+  {
+    id: 10,
+    name: "Ronald Araújo",
+    club: "Barcelona",
+    nation: "Uruguay",
+    position: "DEF",
+    rating: 90,
+    price: 14.0,
+  },
+  {
+    id: 11,
+    name: "Thibaut Courtois",
+    club: "Real Madrid",
+    nation: "Belgium",
+    position: "GK",
+    rating: 91,
+    price: 16.5,
+  },
+  {
+    id: 12,
+    name: "Gianluigi Donnarumma",
+    club: "Paris SG",
+    nation: "Italy",
+    position: "GK",
+    rating: 90,
+    price: 15.0,
+  },
+  {
+    id: 13,
+    name: "Josko Gvardiol",
+    club: "Manchester City",
+    nation: "Croatia",
+    position: "DEF",
+    rating: 89,
+    price: 12.5,
+  },
+  {
+    id: 14,
+    name: "Pedri",
+    club: "Barcelona",
+    nation: "Spain",
+    position: "MID",
+    rating: 90,
+    price: 15.0,
+  },
+  {
+    id: 15,
+    name: "Jamal Musiala",
+    club: "Bayern Munich",
+    nation: "Germany",
+    position: "MID",
+    rating: 91,
+    price: 18.5,
+  },
+];
+
+const MAX_BUDGET = 100;
+const draft = new Map();
+
+const selectors = {
+  players: document.querySelector("#players"),
+  draftList: document.querySelector("#draftList"),
+  remainingBudget: document.querySelector("#remainingBudget"),
+  squadCount: document.querySelector("#squadCount"),
+  averageRating: document.querySelector("#averageRating"),
+  searchInput: document.querySelector("#searchInput"),
+  positionFilter: document.querySelector("#positionFilter"),
+  ratingRange: document.querySelector("#ratingRange"),
+  ratingValue: document.querySelector("#ratingValue"),
+  sortSelect: document.querySelector("#sortSelect"),
+  clearTeam: document.querySelector("#clearTeam"),
+  toggleDraftBoard: document.querySelector("#toggleDraftBoard"),
+  draftBoard: document.querySelector("#team"),
 };
 
-const elements = {
-  loginForm: document.getElementById('login-form'),
-  loginSection: document.getElementById('login-section'),
-  adminSection: document.getElementById('admin-section'),
-  ownerSection: document.getElementById('owner-section'),
-  reportSection: document.getElementById('report-section'),
-  authInfo: document.getElementById('auth-info'),
-  auctionInfo: document.getElementById('auction-info'),
-  auctionName: document.getElementById('auction-name'),
-  playerImport: document.getElementById('player-import'),
-  importPlayersButton: document.getElementById('import-players'),
-  adminLot: document.getElementById('admin-lot'),
-  adminSummary: document.getElementById('admin-summary'),
-  setTeams: document.getElementById('set-teams'),
-  createAuction: document.getElementById('create-auction'),
-  queueLots: document.getElementById('queue-lots'),
-  startAuction: document.getElementById('start-auction'),
-  nextLot: document.getElementById('next-lot'),
-  finalizeLot: document.getElementById('finalize-lot'),
-  completeAuction: document.getElementById('complete-auction'),
-  overrideComplete: document.getElementById('override-complete'),
-  downloadReport: document.getElementById('download-report'),
-  refreshSummary: document.getElementById('refresh-summary'),
-  ownerBudget: document.getElementById('owner-budget'),
-  ownerRoster: document.getElementById('owner-roster'),
-  ownerLot: document.getElementById('owner-lot'),
-  bidAmount: document.getElementById('bid-amount'),
-  bidButtons: document.querySelectorAll('.bid-controls button[data-inc]'),
-  submitBid: document.getElementById('submit-bid'),
-  bidHistory: document.getElementById('bid-history'),
-  loadOwnerState: document.getElementById('load-owner-state'),
-  loadReport: document.getElementById('load-report'),
-  reportOutput: document.getElementById('report-output')
-};
-
-let socket;
-
-function updateAuthUI() {
-  if (state.user) {
-    elements.authInfo.textContent = `${state.user.username} (${state.user.role})`;
-  } else {
-    elements.authInfo.textContent = '';
-  }
-  if (state.auctionId) {
-    elements.auctionInfo.textContent = `Auction ID: ${state.auctionId}`;
-  } else {
-    elements.auctionInfo.textContent = '';
-  }
+function formatMillions(value) {
+  return `$${value.toFixed(1)}M`;
 }
 
-function showSection(section, show) {
-  section.classList.toggle('hidden', !show);
+function calculateRemainingBudget() {
+  const spent = Array.from(draft.values()).reduce((sum, player) => sum + player.price, 0);
+  return MAX_BUDGET - spent;
 }
 
-function configureLayout() {
-  const isAdmin = state.user?.role === 'ADMIN';
-  const isOwner = state.user?.role === 'OWNER';
-  showSection(elements.loginSection, !state.user);
-  showSection(elements.adminSection, isAdmin);
-  showSection(elements.ownerSection, isOwner);
-  showSection(elements.reportSection, Boolean(state.user));
-  updateAuthUI();
+function calculateAverageRating() {
+  if (draft.size === 0) return null;
+  const total = Array.from(draft.values()).reduce((sum, player) => sum + player.rating, 0);
+  return total / draft.size;
 }
 
-async function api(path, { method = 'GET', body } = {}) {
-  if (!state.token) throw new Error('Missing auth');
-  const res = await fetch(path, {
-    method,
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${state.token}`
-    },
-    body: body ? JSON.stringify(body) : undefined
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err.error || res.statusText);
-  }
-  return res.json();
-}
+function updateDashboard() {
+  const remaining = calculateRemainingBudget();
+  selectors.remainingBudget.textContent = formatMillions(remaining);
+  selectors.squadCount.textContent = draft.size;
+  const avg = calculateAverageRating();
+  selectors.averageRating.textContent = avg ? avg.toFixed(1) : "—";
 
-function connectSocket() {
-  if (!state.auctionId) return;
-  if (socket) {
-    socket.close();
-  }
-  const protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  socket = new WebSocket(`${protocol}://${location.host}/?auctionId=${state.auctionId}`);
-  socket.onmessage = (event) => {
-    try {
-      const payload = JSON.parse(event.data);
-      handleSocketEvent(payload);
-    } catch (err) {
-      console.error('socket message error', err);
+  const playerCards = selectors.players.querySelectorAll(".player-card");
+  playerCards.forEach((card) => {
+    const price = parseFloat(card.dataset.price);
+    const id = parseInt(card.dataset.id, 10);
+    const button = card.querySelector(".add-button");
+
+    if (draft.has(id)) {
+      card.classList.add("disabled");
+      button.classList.add("added");
+      button.textContent = "In squad";
+    } else {
+      card.classList.remove("disabled");
+      button.classList.remove("added");
+      button.textContent = "Add to squad";
     }
-  };
-}
 
-function handleSocketEvent({ event, payload }) {
-  if (event === 'LOT_ACTIVATED') {
-    state.currentLot = payload.lot;
-    state.bids = [];
-    renderLots();
-  }
-  if (event === 'BID_PLACED') {
-    state.bids.unshift(payload.bid);
-    renderBids();
-  }
-  if (event === 'LOT_SOLD') {
-    state.currentLot = null;
-    renderLots();
-  }
-  if (event === 'TEAM_UPDATED' || event === 'AUCTION_STATUS_CHANGED') {
-    refreshSummary();
-  }
-}
-
-async function login(username, password) {
-  const res = await fetch('/api/auth/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password })
+    if (!draft.has(id) && remaining < price) {
+      card.classList.add("disabled");
+    }
   });
-  if (!res.ok) {
-    throw new Error('Invalid credentials');
-  }
-  const data = await res.json();
-  state.token = data.token;
-  state.user = data.user;
-  configureLayout();
-  if (state.user.role === 'ADMIN') {
-    await ensureAuctionSelected();
-  }
-  if (state.user.role === 'OWNER') {
-    await ensureAuctionSelected();
-    await initializeOwner();
-  }
-  connectSocket();
 }
 
-elements.loginForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  const formData = new FormData(elements.loginForm);
-  const username = formData.get('username');
-  const password = formData.get('password');
-  try {
-    await login(username, password);
-  } catch (err) {
-    alert(err.message);
-  }
-});
+function renderPlayers(list) {
+  selectors.players.innerHTML = "";
+  const template = document.querySelector("#playerCardTemplate");
 
-async function ensureAuctionSelected() {
-  if (state.auctionId) return;
-  const input = prompt('Enter auction ID to use (or leave blank to create one).');
-  if (input) {
-    state.auctionId = input.trim();
-    localStorage.setItem('auctionId', state.auctionId);
-    updateAuthUI();
-  }
+  list.forEach((player) => {
+    const node = template.content.cloneNode(true);
+    const card = node.querySelector(".player-card");
+    card.dataset.id = player.id;
+    card.dataset.price = player.price;
+
+    node.querySelector(".player-rating").textContent = player.rating;
+    node.querySelector(".player-name").textContent = player.name;
+    node.querySelector(".player-club").textContent = player.club;
+    node.querySelector(".player-price").textContent = formatMillions(player.price);
+    node.querySelector(".badge.position").textContent = player.position;
+    node.querySelector(".badge.nation").textContent = player.nation;
+
+    node.querySelector(".add-button").addEventListener("click", () => addPlayer(player.id));
+
+    selectors.players.appendChild(node);
+  });
+
+  updateDashboard();
 }
 
-elements.createAuction?.addEventListener('click', async () => {
-  if (!elements.auctionName.value.trim()) {
-    const name = prompt('Auction name');
-    if (!name) return;
-    elements.auctionName.value = name;
+function renderDraft() {
+  selectors.draftList.innerHTML = "";
+  const template = document.querySelector("#draftItemTemplate");
+
+  if (draft.size === 0) {
+    selectors.draftList.innerHTML = `<p class="empty">No players drafted yet. Use the board to add your first star.</p>`;
+    return;
   }
-  try {
-    const response = await api('/api/auctions', {
-      method: 'POST',
-      body: {
-        name: elements.auctionName.value || 'FC26 Auction',
-        increment: 1000,
-        antiSnipeThreshold: 5,
-        antiSnipeExtension: 10
+
+  draft.forEach((player) => {
+    const node = template.content.cloneNode(true);
+    node.querySelector(".draft-name").textContent = player.name;
+    node.querySelector(".draft-position").textContent = player.position;
+    node.querySelector(".draft-rating").textContent = `⭐ ${player.rating}`;
+    node.querySelector(".draft-price").textContent = formatMillions(player.price);
+    node.querySelector(".remove-button").addEventListener("click", () => removePlayer(player.id));
+    selectors.draftList.appendChild(node);
+  });
+}
+
+function addPlayer(id) {
+  if (draft.has(id)) return;
+  const player = players.find((p) => p.id === id);
+  if (!player) return;
+
+  const remaining = calculateRemainingBudget();
+  if (player.price > remaining) {
+    highlightBudgetWarning();
+    return;
+  }
+
+  draft.set(id, player);
+  renderDraft();
+  updateDashboard();
+}
+
+function removePlayer(id) {
+  draft.delete(id);
+  renderDraft();
+  updateDashboard();
+}
+
+function highlightBudgetWarning() {
+  selectors.remainingBudget.classList.add("shake");
+  setTimeout(() => selectors.remainingBudget.classList.remove("shake"), 600);
+}
+
+function filterPlayers() {
+  const searchTerm = selectors.searchInput.value.toLowerCase();
+  const position = selectors.positionFilter.value;
+  const minimumRating = parseInt(selectors.ratingRange.value, 10);
+  const sort = selectors.sortSelect.value;
+
+  const filtered = players
+    .filter((player) => {
+      const matchesSearch =
+        player.name.toLowerCase().includes(searchTerm) ||
+        player.club.toLowerCase().includes(searchTerm);
+      const matchesPosition = position === "all" || player.position === position;
+      const matchesRating = player.rating >= minimumRating;
+      return matchesSearch && matchesPosition && matchesRating;
+    })
+    .sort((a, b) => {
+      switch (sort) {
+        case "rating-asc":
+          return a.rating - b.rating;
+        case "price-asc":
+          return a.price - b.price;
+        case "price-desc":
+          return b.price - a.price;
+        case "rating-desc":
+        default:
+          return b.rating - a.rating;
       }
     });
-    state.auctionId = response.auction.id;
-    localStorage.setItem('auctionId', state.auctionId);
-    updateAuthUI();
-    alert(`Auction created with id ${state.auctionId}`);
-  } catch (err) {
-    alert(err.message);
-  }
-});
 
-elements.setTeams?.addEventListener('click', async () => {
-  if (!state.auctionId) {
-    alert('Create or select an auction first.');
-    return;
-  }
-  const template = '[{"name":"Blue","ownerUsername":"owner1","budget":1000000}]';
-  const text = prompt('Enter team definitions as JSON', template);
-  if (!text) return;
-  try {
-    const teams = JSON.parse(text);
-    await api(`/api/auctions/${state.auctionId}/teams`, { method: 'POST', body: { teams } });
-    alert('Teams saved');
-    refreshSummary();
-  } catch (err) {
-    alert(err.message);
-  }
-});
-
-elements.importPlayersButton?.addEventListener('click', async () => {
-  if (!state.auctionId) {
-    alert('Create or select an auction first.');
-    return;
-  }
-  const csv = elements.playerImport.value.trim();
-  if (!csv) {
-    alert('Paste a CSV payload first');
-    return;
-  }
-  try {
-    await api('/api/players/import', { method: 'POST', body: { data: csv } });
-    alert('Players imported');
-  } catch (err) {
-    alert(err.message);
-  }
-});
-
-elements.queueLots?.addEventListener('click', async () => {
-  if (!state.auctionId) return alert('Select auction first');
-  try {
-    const playerData = await api('/api/players');
-    if (!playerData.players.length) throw new Error('No players imported');
-    await api(`/api/auctions/${state.auctionId}/lots/queue`, {
-      method: 'POST',
-      body: { playerIds: playerData.players.map((p) => p.id) }
-    });
-    alert('Players queued');
-  } catch (err) {
-    alert(err.message);
-  }
-});
-
-elements.startAuction?.addEventListener('click', async () => {
-  if (!state.auctionId) return alert('Select auction first');
-  try {
-    await api(`/api/auctions/${state.auctionId}/start`, { method: 'PATCH' });
-    alert('Auction started');
-  } catch (err) {
-    alert(err.message);
-  }
-});
-
-elements.nextLot?.addEventListener('click', async () => {
-  if (!state.auctionId) return alert('Select auction first');
-  try {
-    const data = await api(`/api/auctions/${state.auctionId}/lots/next`, { method: 'PATCH' });
-    state.currentLot = data.lot;
-    state.bids = [];
-    renderLots();
-  } catch (err) {
-    alert(err.message);
-  }
-});
-
-elements.finalizeLot?.addEventListener('click', async () => {
-  if (!state.auctionId || !state.currentLot) {
-    alert('Activate a lot first');
-    return;
-  }
-  try {
-    await api(`/api/lots/${state.currentLot.id}/finalize`, {
-      method: 'PATCH',
-      body: { auctionId: state.auctionId }
-    });
-    state.currentLot = null;
-    state.bids = [];
-    renderLots();
-    await refreshSummary();
-  } catch (err) {
-    alert(err.message);
-  }
-});
-
-elements.completeAuction?.addEventListener('click', async () => {
-  if (!state.auctionId) return alert('Select auction first');
-  try {
-    await api(`/api/auctions/${state.auctionId}/complete`, {
-      method: 'PATCH',
-      body: { override: false }
-    });
-    alert('Auction completed');
-  } catch (err) {
-    alert(err.message);
-  }
-});
-
-elements.overrideComplete?.addEventListener('click', async () => {
-  if (!state.auctionId) return alert('Select auction first');
-  try {
-    await api(`/api/auctions/${state.auctionId}/complete`, {
-      method: 'PATCH',
-      body: { override: true }
-    });
-    alert('Auction completion overridden');
-  } catch (err) {
-    alert(err.message);
-  }
-});
-
-elements.downloadReport?.addEventListener('click', async () => {
-  if (!state.auctionId) return alert('Select auction first');
-  try {
-    const data = await api(`/api/auctions/${state.auctionId}/export.csv`);
-    const blob = new Blob([data.csv], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `auction-${state.auctionId}.csv`;
-    link.click();
-    URL.revokeObjectURL(url);
-  } catch (err) {
-    alert(err.message);
-  }
-});
-
-elements.refreshSummary?.addEventListener('click', () => {
-  refreshSummary();
-});
-
-async function refreshSummary() {
-  if (!state.auctionId || !state.token) return;
-  try {
-    const data = await api(`/api/auctions/${state.auctionId}/reports/teams-summary`);
-    elements.adminSummary.textContent = JSON.stringify(data.summary, null, 2);
-    if (state.user?.role === 'OWNER') {
-      const team = data.summary.find((entry) => entry.team.ownerUserId === state.user.id || entry.team.id === state.teamId);
-      if (team) {
-        state.teamId = team.team.id;
-        localStorage.setItem('teamId', state.teamId);
-        elements.ownerBudget.textContent = `${team.remainingBudget.toLocaleString()} credits`;
-        elements.ownerRoster.innerHTML = team.players
-          .map((p) => `<li>${p.player?.name || 'Unknown'} - ${p.soldPrice?.toLocaleString() || ''}</li>`)
-          .join('');
-      }
-    }
-  } catch (err) {
-    console.warn('summary error', err);
-  }
+  renderPlayers(filtered);
 }
 
-async function loadActiveLot() {
-  if (!state.auctionId) return;
-  try {
-    const data = await api(`/api/auctions/${state.auctionId}/lots/active`);
-    state.currentLot = data.lot;
-    state.bids = data.bids || [];
-    renderLots();
-  } catch (err) {
-    console.warn('lot load error', err);
-  }
+function resetSquad() {
+  draft.clear();
+  renderDraft();
+  updateDashboard();
 }
 
-async function initializeOwner() {
-  if (!state.auctionId) return;
-  try {
-    const teamData = await api(`/api/auctions/${state.auctionId}/teams`);
-    const team = teamData.teams.find((t) => t.ownerUserId === state.user.id);
-    if (team) {
-      state.teamId = team.id;
-      localStorage.setItem('teamId', state.teamId);
-    }
-  } catch (err) {
-    console.warn('team lookup error', err);
-  }
-  await refreshSummary();
-  await loadActiveLot();
+function toggleDraftBoard() {
+  const isOpen = selectors.draftBoard.classList.toggle("open");
+  selectors.toggleDraftBoard.textContent = isOpen ? "Hide Draft Board" : "Open Draft Board";
+  selectors.toggleDraftBoard.setAttribute("aria-expanded", String(isOpen));
 }
 
-elements.bidButtons.forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const inc = Number(btn.dataset.inc);
-    elements.bidAmount.value = (Number(elements.bidAmount.value || state.currentLot?.reserve || 0) + inc).toString();
+function init() {
+  selectors.draftBoard.classList.add("open");
+  selectors.toggleDraftBoard.textContent = "Hide Draft Board";
+  selectors.toggleDraftBoard.setAttribute("aria-expanded", "true");
+
+  selectors.ratingRange.addEventListener("input", () => {
+    selectors.ratingValue.textContent = selectors.ratingRange.value;
+    filterPlayers();
   });
-});
 
-elements.submitBid?.addEventListener('click', async () => {
-  if (!state.auctionId || !state.teamId || !state.currentLot) {
-    alert('Missing auction, team, or lot');
-    return;
-  }
-  const amount = Number(elements.bidAmount.value);
-  if (!amount) {
-    alert('Enter a bid amount');
-    return;
-  }
-  try {
-    const response = await api(`/api/lots/${state.currentLot.id}/bids`, {
-      method: 'POST',
-      body: { amount, auctionId: state.auctionId, teamId: state.teamId }
-    });
-    state.bids.unshift(response.bid);
-    renderBids();
-  } catch (err) {
-    alert(err.message);
-  }
-});
+  selectors.searchInput.addEventListener("input", filterPlayers);
+  selectors.positionFilter.addEventListener("change", filterPlayers);
+  selectors.sortSelect.addEventListener("change", filterPlayers);
+  selectors.clearTeam.addEventListener("click", resetSquad);
+  selectors.toggleDraftBoard.addEventListener("click", toggleDraftBoard);
 
-elements.loadOwnerState?.addEventListener('click', async () => {
-  await refreshSummary();
-  await loadActiveLot();
-});
-
-elements.loadReport?.addEventListener('click', async () => {
-  if (!state.auctionId || !state.token) return;
-  try {
-    const [highest, summary] = await Promise.all([
-      api(`/api/auctions/${state.auctionId}/reports/highest-sale`),
-      api(`/api/auctions/${state.auctionId}/reports/teams-summary`)
-    ]);
-    elements.reportOutput.textContent = JSON.stringify({ highest: highest.report, summary: summary.summary }, null, 2);
-  } catch (err) {
-    alert(err.message);
-  }
-});
-
-function renderLots() {
-  elements.adminLot.textContent = state.currentLot ? JSON.stringify(state.currentLot, null, 2) : 'No active lot';
-  elements.ownerLot.textContent = state.currentLot ? JSON.stringify(state.currentLot, null, 2) : 'No active lot';
-  renderBids();
+  renderPlayers(players.sort((a, b) => b.rating - a.rating));
+  renderDraft();
+  updateDashboard();
 }
 
-function renderBids() {
-  elements.bidHistory.innerHTML = state.bids
-    .map((bid) => `<li>${new Date(bid.placedAt).toLocaleTimeString()} - ${bid.amount.toLocaleString()} by ${bid.teamId}</li>`)
-    .join('');
-}
-
-configureLayout();
-updateAuthUI();
-if (state.auctionId) {
-  connectSocket();
-}
+document.addEventListener("DOMContentLoaded", init);

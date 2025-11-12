@@ -1,11 +1,17 @@
-FROM node:18-alpine
+FROM node:20-alpine AS builder
 WORKDIR /app
-COPY backend/package.json ./package.json
-RUN npm set fund false && npm set audit false
-# no dependencies required
-COPY backend/src ./src
-COPY backend/data ./data
-COPY web ./web
+COPY package.json package-lock.json* tsconfig*.json tsconfig.base.json tsconfig.build.json jest.config.ts .eslintrc.cjs ./
+COPY prisma ./prisma
+RUN npm install
+RUN npx prisma generate
+COPY src ./src
+RUN npm run build
+
+FROM node:20-alpine
+WORKDIR /app
+COPY package.json package-lock.json* ./
+RUN npm install --omit=dev
+COPY --from=builder /app/dist ./dist
+COPY prisma ./prisma
 ENV NODE_ENV=production
-EXPOSE 4000
-CMD ["node", "src/server.js"]
+CMD ["node", "dist/index.js"]

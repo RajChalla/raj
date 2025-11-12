@@ -1,14 +1,35 @@
 version: '3.9'
 services:
-  api:
-    build:
-      context: .
-      dockerfile: backend/Dockerfile
+  postgres:
+    image: postgres:15-alpine
+    restart: always
     environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: fc26
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  api:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/fc26
+      JWT_SECRET: change-me
+      AUTH_COOKIE_NAME: fc26_token
       PORT: 4000
-      APP_SECRET: change-me
+    depends_on:
+      - postgres
     ports:
       - '4000:4000'
-    volumes:
-      - ./backend/data:/app/data
-      - ./web:/app/web
+
+  web:
+    build: ./frontend
+    depends_on:
+      - api
+    ports:
+      - '5173:4173'
+
+volumes:
+  postgres-data:

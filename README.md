@@ -1,50 +1,72 @@
-# FC26 Auction Platform
+# FC26 Men's Gold Rare Auction Platform
 
-This repository contains a self-contained implementation of the FC26 Gold Rare auction platform. It ships with a lightweight Node.js backend, a static frontend, offline-friendly tests, and Docker orchestration. No external package registry access is required.
+This repository hosts a full-stack real-time auction platform for FC26 Men's Gold Rare player cards. It includes:
 
-## Features
-
-- Plain-text JSON datastore persisted to `backend/data/store.json`; no external database is required.
-- Preloaded text-file roster of the top 100 FC26 men’s Gold Rare players in `backend/data/players.json` for immediate auctioning.
-- Player import that filters for FC26 **men’s Gold Rare** cards and computes base prices from configurable tiers.
-- Auction lifecycle with queues, single active lot enforcement, bid validation, anti-snipe extensions, reserve handling, unsold marking, and manual overrides logged through the audit log.
-- Per-auction budgets, roster minimum enforcement (19 players), and override auditing.
-- Real-time updates delivered via a minimal WebSocket implementation with `LOT_ACTIVATED`, `BID_PLACED`, `LOT_SOLD`, and `AUCTION_STATUS_CHANGED` events.
-- Admin/owner/report dashboards built with vanilla JavaScript that interact with the API and socket layer.
-- CSV export and JSON reports for highest sale and team summaries.
-- Unit and integration tests executed with the built-in `node:test` runner.
-- Docker Compose stack (`api`, `web`) requiring no package downloads.
+- **Node.js + Express + Prisma** backend with Socket.IO and PostgreSQL
+- **React + Vite** frontend for admin and team owners
+- **Docker Compose** for local development and deployment
+- Comprehensive business logic covering auction rules, roster minimums, anti-snipe extensions, and reporting
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js 18+
 
-### Local Development
+- Docker & Docker Compose
+
+### Environment Setup
+
+Copy the sample environment file:
 
 ```bash
-# start the API and static frontend
-cd backend
-npm start
+cp .env.example .env
 ```
 
-Open http://localhost:4000/ to access the web console.
+Update values as needed (especially `JWT_SECRET`).
 
-Demo credentials are seeded automatically:
-- Admin: `admin` / `admin123`
-- Owner 1: `owner1` / `owner123`
-- Owner 2: `owner2` / `owner123`
-- Viewer: `viewer` / `viewer123`
-
-### Tests
+### Launching the stack
 
 ```bash
-cd backend
+docker-compose up --build
+```
+
+The services will be available at:
+
+- Backend API: `http://localhost:4000`
+- Frontend: `http://localhost:5173`
+- PostgreSQL: `localhost:5432`
+
+After the containers start, apply the database schema:
+
+```bash
+docker-compose exec api npx prisma migrate deploy
+```
+
+### Seed Data
+
+Run the seed script inside the API container to load sample Gold Rare players and demo accounts:
+
+```bash
+docker-compose run --rm api npm install
+docker-compose run --rm api npm run seed
+```
+
+(Alternatively, import your own player CSV/JSON through the admin UI.)
+
+### Demo Accounts
+
+| Role  | Email                | Password    |
+|-------|----------------------|-------------|
+| Admin | admin@example.com    | adminpass   |
+| Owner | owner1@example.com   | owner1pass  |
+| Owner | owner2@example.com   | owner2pass  |
+
+### Testing
+
+From the `backend` directory run:
+
+```bash
+npm install
 npm test
-```
-
-### Docker
-
 ```
 docker compose up
 ```
@@ -53,16 +75,25 @@ The compose stack builds the API with no dependency downloads and serves the sta
 
 ### Environment Variables
 
-See `.env.example` for optional overrides. The server defaults to `PORT=4000` and uses `APP_SECRET` for signing JWT-like tokens.
+Tests cover base price tiers, bid validation rules, roster completion guard, and an end-to-end bidding flow.
 
-### Project Layout
+### Development Scripts
 
-```
-backend/
-  data/             # persisted datastore
-    players.json    # top 100 FC26 Gold Rare men, used to seed the store
-  src/              # backend source code
-  tests/            # node:test suites
-web/                # static frontend assets
-```
+- `npm run dev` in `backend`: start API with hot reload
+- `npm run dev` in `frontend`: start Vite dev server
 
+## API Overview
+
+Key endpoints include:
+
+- `POST /api/auth/login` – authenticate via email/password
+- `POST /api/players/import` – admin import of Gold Rare player catalog
+- `POST /api/auctions` – create auctions with per-team budgets
+- `POST /api/lots/:lotId/bids` – place real-time bids with server-side validation
+- `GET /api/auctions/:id/reports/teams-summary` – post-auction reporting with CSV export
+
+Refer to source code for the full list of routes and payloads.
+
+## License
+
+MIT

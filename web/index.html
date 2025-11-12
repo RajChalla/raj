@@ -1,92 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FC26 Auction Control</title>
-  <link rel="stylesheet" href="/styles.css" />
-</head>
-<body>
-  <div class="app">
-    <header class="app__header">
-      <h1>FC26 Auction Console</h1>
-      <div class="header-info">
-        <div id="auth-info"></div>
-        <div id="auction-info"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FC26 Auction Hub</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="branding">
+        <div class="logo">FC26</div>
+        <div class="title-group">
+          <h1>Ultimate Auction Hub</h1>
+          <p>Craft your dream team without breaking the $100M cap.</p>
+        </div>
       </div>
+      <nav class="nav-links">
+        <a href="#players">Players</a>
+        <a href="#team">My Squad</a>
+        <a href="#how-it-works">How it works</a>
+      </nav>
     </header>
-    <main class="app__main">
-      <section id="login-section" class="card">
-        <h2>Login</h2>
-        <form id="login-form">
-          <label>Username <input name="username" required /></label>
-          <label>Password <input name="password" type="password" required /></label>
-          <button type="submit">Sign in</button>
-        </form>
-        <p class="hint">Demo accounts: admin/admin123, owner1/owner123, owner2/owner123</p>
-      </section>
-      <section id="admin-section" class="card hidden">
-        <h2>Admin Tools</h2>
-        <div class="form-row">
-          <input id="auction-name" placeholder="Auction name" />
-          <button id="create-auction">Create Auction</button>
-          <button id="set-teams">Set Teams & Budgets</button>
-        </div>
-        <div class="form-row">
-          <textarea id="player-import" rows="4" placeholder="Paste Gold Rare player CSV"></textarea>
-          <button id="import-players">Import Players</button>
-        </div>
-        <div class="form-row">
-          <button id="queue-lots">Queue Players</button>
-          <button id="start-auction">Start</button>
-          <button id="next-lot">Activate Next Lot</button>
-          <button id="finalize-lot">Finalize Lot</button>
-        </div>
-        <div class="form-row">
-          <button id="complete-auction">Complete Auction</button>
-          <button id="override-complete">Override Complete</button>
-          <button id="download-report">Download CSV</button>
-        </div>
-        <div class="form-row">
-          <button id="refresh-summary">Refresh Summary</button>
-        </div>
-        <div class="summary">
-          <h3>Current Lot</h3>
-          <pre id="admin-lot"></pre>
-          <h3>Teams Summary</h3>
-          <pre id="admin-summary"></pre>
-        </div>
-      </section>
-      <section id="owner-section" class="card hidden">
-        <h2>Owner Console</h2>
-        <div class="form-row">
-          <button id="load-owner-state">Refresh State</button>
-        </div>
-        <div class="summary">
-          <h3>Remaining Budget</h3>
-          <p id="owner-budget">-</p>
-          <h3>Roster</h3>
-          <ul id="owner-roster"></ul>
-          <h3>Active Lot</h3>
-          <pre id="owner-lot"></pre>
-          <div class="bid-controls">
-            <input id="bid-amount" type="number" placeholder="Bid amount" />
-            <button data-inc="1000">+1k</button>
-            <button data-inc="5000">+5k</button>
-            <button data-inc="10000">+10k</button>
-            <button id="submit-bid">Submit Bid</button>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <h2>Bid smart. Build legendary.</h2>
+          <p>
+            Scout FC26 standouts, evaluate their ratings, and assemble a squad that
+            stays within your $100M budget ceiling.
+          </p>
+          <div class="hero-actions">
+            <button class="primary" id="toggleDraftBoard" aria-controls="team" aria-expanded="true">
+              Open Draft Board
+            </button>
+            <button class="secondary" id="clearTeam">Reset Squad</button>
           </div>
-          <h3>Bid History</h3>
-          <ul id="bid-history"></ul>
+        </div>
+        <div class="hero-card">
+          <div class="budget">
+            <span>Remaining budget</span>
+            <strong id="remainingBudget">$100.0M</strong>
+          </div>
+          <div class="squad-count">
+            <span>Players signed</span>
+            <strong id="squadCount">0</strong>
+          </div>
+          <div class="team-rating">
+            <span>Avg rating</span>
+            <strong id="averageRating">—</strong>
+          </div>
         </div>
       </section>
-      <section id="report-section" class="card hidden">
-        <h2>Reports</h2>
-        <button id="load-report">Load Reports</button>
-        <pre id="report-output"></pre>
+
+      <section class="filters" aria-label="player filters">
+        <div class="filter-group">
+          <label for="searchInput">Search</label>
+          <input
+            type="search"
+            id="searchInput"
+            placeholder="Search by player or club"
+          />
+        </div>
+        <div class="filter-group">
+          <label for="positionFilter">Position</label>
+          <select id="positionFilter">
+            <option value="all">All positions</option>
+            <option value="GK">Goalkeeper</option>
+            <option value="DEF">Defender</option>
+            <option value="MID">Midfielder</option>
+            <option value="FWD">Forward</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="ratingRange">Minimum rating</label>
+          <input type="range" id="ratingRange" min="80" max="95" value="80" />
+          <span class="range-value" id="ratingValue">80</span>
+        </div>
+        <div class="filter-group">
+          <label for="sortSelect">Sort by</label>
+          <select id="sortSelect">
+            <option value="rating-desc">Rating (high to low)</option>
+            <option value="rating-asc">Rating (low to high)</option>
+            <option value="price-asc">Price (low to high)</option>
+            <option value="price-desc">Price (high to low)</option>
+          </select>
+        </div>
+      </section>
+
+      <section id="players" class="player-grid" aria-live="polite"></section>
+
+      <section id="team" class="draft-board" aria-label="Selected players">
+        <header>
+          <h3>My Squad</h3>
+          <p>Balance positions, ratings, and your remaining war chest.</p>
+        </header>
+        <div class="draft-list" id="draftList"></div>
+      </section>
+
+      <section id="how-it-works" class="how-it-works">
+        <h3>How the FC26 auction works</h3>
+        <ol>
+          <li>Select the stars you want to bid on from the player board.</li>
+          <li>Monitor how each signing impacts your remaining budget and team rating.</li>
+          <li>Lock in your perfect XI without eclipsing the $100M threshold.</li>
+        </ol>
+        <p class="tip">
+          Tip: Ratings influence player valuations. Snag emerging stars with high
+          ceilings to stretch your budget further.
+        </p>
       </section>
     </main>
-  </div>
-  <script src="/app.js" type="module"></script>
-</body>
+
+    <footer class="site-footer">
+      <p>Built for FC26 tacticians. Design by your creative auctioneer.</p>
+    </footer>
+
+    <template id="playerCardTemplate">
+      <article class="player-card">
+        <header>
+          <div class="player-rating"></div>
+          <div class="player-meta">
+            <h4 class="player-name"></h4>
+            <span class="player-club"></span>
+          </div>
+        </header>
+        <div class="player-body">
+          <span class="badge position"></span>
+          <span class="badge nation"></span>
+        </div>
+        <footer>
+          <div class="player-price"></div>
+          <button class="primary add-button">Add to squad</button>
+        </footer>
+      </article>
+    </template>
+
+    <template id="draftItemTemplate">
+      <article class="draft-item">
+        <div class="draft-info">
+          <span class="draft-name"></span>
+          <span class="draft-position"></span>
+        </div>
+        <div class="draft-meta">
+          <span class="draft-rating"></span>
+          <span class="draft-price"></span>
+        </div>
+        <button class="secondary remove-button" aria-label="Remove player">✕</button>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
 </html>

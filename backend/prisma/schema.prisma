@@ -1,0 +1,152 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  OWNER
+  VIEWER
+}
+
+enum AuctionStatus {
+  DRAFT
+  RUNNING
+  PAUSED
+  COMPLETED
+}
+
+enum LotStatus {
+  QUEUED
+  ACTIVE
+  SOLD
+  UNSOLD
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         Role
+  displayName  String
+  teams        Team[]
+  auditLogs    AuditLog[]
+  createdAt    DateTime @default(now())
+}
+
+model Auction {
+  id                String        @id @default(cuid())
+  name              String
+  status            AuctionStatus @default(DRAFT)
+  startTime         DateTime?
+  endTime           DateTime?
+  antiSnipeWindow   Int           @default(5)
+  antiSnipeExtend   Int           @default(10)
+  bidIncrement      Int           @default(1000)
+  lots              Lot[]
+  teams             Team[]
+  sales             Sale[]
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  settingsSnapshot  Json?
+}
+
+model Team {
+  id              String    @id @default(cuid())
+  name            String
+  auction         Auction   @relation(fields: [auctionId], references: [id])
+  auctionId       String
+  owner           User?     @relation(fields: [ownerId], references: [id])
+  ownerId         String?
+  initialBudget   Int
+  remainingBudget Int
+  rosterCount     Int       @default(0)
+  bids            Bid[]
+  sales           Sale[]
+  auditLogs       AuditLog[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Player {
+  id        String  @id
+  name      String
+  position  String
+  club      String
+  nation    String
+  rating    Int
+  rarity    String
+  gender    String
+  basePrice Int
+  lots      Lot[]
+  createdAt DateTime @default(now())
+}
+
+model Lot {
+  id            String    @id @default(cuid())
+  auction       Auction   @relation(fields: [auctionId], references: [id])
+  auctionId     String
+  player        Player    @relation(fields: [playerId], references: [id])
+  playerId      String
+  status        LotStatus @default(QUEUED)
+  reservePrice  Int
+  currentBidId  String?
+  currentBid    Bid?      @relation("LotCurrentBid", fields: [currentBidId], references: [id])
+  bids          Bid[]
+  sale          Sale?
+  startsAt      DateTime?
+  endsAt        DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Bid {
+  id        String   @id @default(cuid())
+  lot       Lot      @relation(fields: [lotId], references: [id])
+  lotId     String
+  team      Team     @relation(fields: [teamId], references: [id])
+  teamId    String
+  amount    Int
+  createdAt DateTime @default(now())
+  lotCurrent Lot?    @relation("LotCurrentBid")
+}
+
+model Sale {
+  id         String   @id @default(cuid())
+  lot        Lot      @relation(fields: [lotId], references: [id])
+  lotId      String   @unique
+  player     Player   @relation(fields: [playerId], references: [id])
+  playerId   String
+  auction    Auction  @relation(fields: [auctionId], references: [id])
+  auctionId  String
+  team       Team?    @relation(fields: [teamId], references: [id])
+  teamId     String?
+  basePrice  Int
+  soldPrice  Int?
+  createdAt  DateTime @default(now())
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  auction    Auction? @relation(fields: [auctionId], references: [id])
+  auctionId  String?
+  team       Team?    @relation(fields: [teamId], references: [id])
+  teamId     String?
+  actor      User?    @relation(fields: [userId], references: [id])
+  userId     String?
+  action     String
+  detail     Json
+  createdAt  DateTime @default(now())
+}
+
+model Setting {
+  id              String @id @default(cuid())
+  key             String @unique
+  value           Json
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
