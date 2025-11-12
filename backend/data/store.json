@@ -1,0 +1,1049 @@
+{
+  "users": [],
+  "players": [
+    {
+      "id": "fc26-0001",
+      "name": "Kylian Mbappé",
+      "position": "ST",
+      "club": "Paris SG",
+      "nation": "France",
+      "rating": 91,
+      "rarity": "Gold Rare",
+      "basePrice": 300000
+    },
+    {
+      "id": "fc26-0002",
+      "name": "Erling Haaland",
+      "position": "ST",
+      "club": "Manchester City",
+      "nation": "Norway",
+      "rating": 91,
+      "rarity": "Gold Rare",
+      "basePrice": 300000
+    },
+    {
+      "id": "fc26-0003",
+      "name": "Kevin De Bruyne",
+      "position": "CAM",
+      "club": "Manchester City",
+      "nation": "Belgium",
+      "rating": 91,
+      "rarity": "Gold Rare",
+      "basePrice": 300000
+    },
+    {
+      "id": "fc26-0004",
+      "name": "Lionel Messi",
+      "position": "RW",
+      "club": "Inter Miami",
+      "nation": "Argentina",
+      "rating": 91,
+      "rarity": "Gold Rare",
+      "basePrice": 300000
+    },
+    {
+      "id": "fc26-0005",
+      "name": "Jude Bellingham",
+      "position": "CM",
+      "club": "Real Madrid",
+      "nation": "England",
+      "rating": 91,
+      "rarity": "Gold Rare",
+      "basePrice": 300000
+    },
+    {
+      "id": "fc26-0006",
+      "name": "Thibaut Courtois",
+      "position": "GK",
+      "club": "Real Madrid",
+      "nation": "Belgium",
+      "rating": 91,
+      "rarity": "Gold Rare",
+      "basePrice": 300000
+    },
+    {
+      "id": "fc26-0007",
+      "name": "Robert Lewandowski",
+      "position": "ST",
+      "club": "FC Barcelona",
+      "nation": "Poland",
+      "rating": 90,
+      "rarity": "Gold Rare",
+      "basePrice": 300000
+    },
+    {
+      "id": "fc26-0008",
+      "name": "Harry Kane",
+      "position": "ST",
+      "club": "Bayern München",
+      "nation": "England",
+      "rating": 90,
+      "rarity": "Gold Rare",
+      "basePrice": 300000
+    },
+    {
+      "id": "fc26-0009",
+      "name": "Mohamed Salah",
+      "position": "RW",
+      "club": "Liverpool",
+      "nation": "Egypt",
+      "rating": 90,
+      "rarity": "Gold Rare",
+      "basePrice": 300000
+    },
+    {
+      "id": "fc26-0010",
+      "name": "Vinícius Jr",
+      "position": "LW",
+      "club": "Real Madrid",
+      "nation": "Brazil",
+      "rating": 90,
+      "rarity": "Gold Rare",
+      "basePrice": 300000
+    },
+    {
+      "id": "fc26-0011",
+      "name": "Rodri",
+      "position": "CDM",
+      "club": "Manchester City",
+      "nation": "Spain",
+      "rating": 90,
+      "rarity": "Gold Rare",
+      "basePrice": 300000
+    },
+    {
+      "id": "fc26-0012",
+      "name": "Virgil van Dijk",
+      "position": "CB",
+      "club": "Liverpool",
+      "nation": "Netherlands",
+      "rating": 90,
+      "rarity": "Gold Rare",
+      "basePrice": 300000
+    },
+    {
+      "id": "fc26-0013",
+      "name": "Marc-André ter Stegen",
+      "position": "GK",
+      "club": "FC Barcelona",
+      "nation": "Germany",
+      "rating": 90,
+      "rarity": "Gold Rare",
+      "basePrice": 300000
+    },
+    {
+      "id": "fc26-0014",
+      "name": "Alisson",
+      "position": "GK",
+      "club": "Liverpool",
+      "nation": "Brazil",
+      "rating": 90,
+      "rarity": "Gold Rare",
+      "basePrice": 300000
+    },
+    {
+      "id": "fc26-0015",
+      "name": "Bruno Fernandes",
+      "position": "CAM",
+      "club": "Manchester United",
+      "nation": "Portugal",
+      "rating": 89,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0016",
+      "name": "Bernardo Silva",
+      "position": "CAM",
+      "club": "Manchester City",
+      "nation": "Portugal",
+      "rating": 89,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0017",
+      "name": "Rúben Dias",
+      "position": "CB",
+      "club": "Manchester City",
+      "nation": "Portugal",
+      "rating": 89,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0018",
+      "name": "Antoine Griezmann",
+      "position": "CF",
+      "club": "Atlético Madrid",
+      "nation": "France",
+      "rating": 89,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0019",
+      "name": "Luka Modrić",
+      "position": "CM",
+      "club": "Real Madrid",
+      "nation": "Croatia",
+      "rating": 89,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0020",
+      "name": "Pedri",
+      "position": "CM",
+      "club": "FC Barcelona",
+      "nation": "Spain",
+      "rating": 89,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0021",
+      "name": "Joshua Kimmich",
+      "position": "CDM",
+      "club": "Bayern München",
+      "nation": "Germany",
+      "rating": 89,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0022",
+      "name": "Neymar Jr",
+      "position": "LW",
+      "club": "Al Hilal",
+      "nation": "Brazil",
+      "rating": 89,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0023",
+      "name": "Karim Benzema",
+      "position": "CF",
+      "club": "Al-Ittihad",
+      "nation": "France",
+      "rating": 89,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0024",
+      "name": "Jan Oblak",
+      "position": "GK",
+      "club": "Atlético Madrid",
+      "nation": "Slovenia",
+      "rating": 89,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0025",
+      "name": "Federico Valverde",
+      "position": "CM",
+      "club": "Real Madrid",
+      "nation": "Uruguay",
+      "rating": 88,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0026",
+      "name": "Phil Foden",
+      "position": "CAM",
+      "club": "Manchester City",
+      "nation": "England",
+      "rating": 88,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0027",
+      "name": "Bukayo Saka",
+      "position": "RW",
+      "club": "Arsenal",
+      "nation": "England",
+      "rating": 88,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0028",
+      "name": "Lautaro Martínez",
+      "position": "ST",
+      "club": "Inter",
+      "nation": "Argentina",
+      "rating": 88,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0029",
+      "name": "Mike Maignan",
+      "position": "GK",
+      "club": "AC Milan",
+      "nation": "France",
+      "rating": 88,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0030",
+      "name": "Victor Osimhen",
+      "position": "ST",
+      "club": "Napoli",
+      "nation": "Nigeria",
+      "rating": 88,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0031",
+      "name": "Martin Ødegaard",
+      "position": "CAM",
+      "club": "Arsenal",
+      "nation": "Norway",
+      "rating": 88,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0032",
+      "name": "Son Heung-min",
+      "position": "LW",
+      "club": "Tottenham Hotspur",
+      "nation": "Korea Republic",
+      "rating": 88,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0033",
+      "name": "Marquinhos",
+      "position": "CB",
+      "club": "Paris SG",
+      "nation": "Brazil",
+      "rating": 88,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0034",
+      "name": "Manuel Neuer",
+      "position": "GK",
+      "club": "Bayern München",
+      "nation": "Germany",
+      "rating": 88,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0035",
+      "name": "Gavi",
+      "position": "CM",
+      "club": "FC Barcelona",
+      "nation": "Spain",
+      "rating": 88,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0036",
+      "name": "João Cancelo",
+      "position": "RB",
+      "club": "FC Barcelona",
+      "nation": "Portugal",
+      "rating": 88,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0037",
+      "name": "Declan Rice",
+      "position": "CDM",
+      "club": "Arsenal",
+      "nation": "England",
+      "rating": 87,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0038",
+      "name": "Rafael Leão",
+      "position": "LW",
+      "club": "AC Milan",
+      "nation": "Portugal",
+      "rating": 87,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0039",
+      "name": "Éder Militão",
+      "position": "CB",
+      "club": "Real Madrid",
+      "nation": "Brazil",
+      "rating": 87,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0040",
+      "name": "Nicolò Barella",
+      "position": "CM",
+      "club": "Inter",
+      "nation": "Italy",
+      "rating": 87,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0041",
+      "name": "Christopher Nkunku",
+      "position": "CF",
+      "club": "Chelsea",
+      "nation": "France",
+      "rating": 87,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0042",
+      "name": "Frenkie de Jong",
+      "position": "CM",
+      "club": "FC Barcelona",
+      "nation": "Netherlands",
+      "rating": 87,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0043",
+      "name": "Achraf Hakimi",
+      "position": "RB",
+      "club": "Paris SG",
+      "nation": "Morocco",
+      "rating": 87,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0044",
+      "name": "Trent Alexander-Arnold",
+      "position": "RB",
+      "club": "Liverpool",
+      "nation": "England",
+      "rating": 87,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0045",
+      "name": "Casemiro",
+      "position": "CDM",
+      "club": "Manchester United",
+      "nation": "Brazil",
+      "rating": 87,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0046",
+      "name": "Theo Hernández",
+      "position": "LB",
+      "club": "AC Milan",
+      "nation": "France",
+      "rating": 87,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0047",
+      "name": "Sadio Mané",
+      "position": "LW",
+      "club": "Al Nassr",
+      "nation": "Senegal",
+      "rating": 87,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0048",
+      "name": "Wojciech Szczęsny",
+      "position": "GK",
+      "club": "Juventus",
+      "nation": "Poland",
+      "rating": 87,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0049",
+      "name": "Milan Škriniar",
+      "position": "CB",
+      "club": "Paris SG",
+      "nation": "Slovakia",
+      "rating": 87,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0050",
+      "name": "Leon Goretzka",
+      "position": "CM",
+      "club": "Bayern München",
+      "nation": "Germany",
+      "rating": 87,
+      "rarity": "Gold Rare",
+      "basePrice": 200000
+    },
+    {
+      "id": "fc26-0051",
+      "name": "Rodrygo",
+      "position": "RW",
+      "club": "Real Madrid",
+      "nation": "Brazil",
+      "rating": 86,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0052",
+      "name": "Kingsley Coman",
+      "position": "LW",
+      "club": "Bayern München",
+      "nation": "France",
+      "rating": 86,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0053",
+      "name": "Aymeric Laporte",
+      "position": "CB",
+      "club": "Al Nassr",
+      "nation": "Spain",
+      "rating": 86,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0054",
+      "name": "Ousmane Dembélé",
+      "position": "RW",
+      "club": "Paris SG",
+      "nation": "France",
+      "rating": 86,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0055",
+      "name": "Andrew Robertson",
+      "position": "LB",
+      "club": "Liverpool",
+      "nation": "Scotland",
+      "rating": 86,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0056",
+      "name": "Riyad Mahrez",
+      "position": "RW",
+      "club": "Al Ahli",
+      "nation": "Algeria",
+      "rating": 86,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0057",
+      "name": "Paulo Dybala",
+      "position": "CF",
+      "club": "Roma",
+      "nation": "Argentina",
+      "rating": 86,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0058",
+      "name": "İlkay Gündoğan",
+      "position": "CM",
+      "club": "FC Barcelona",
+      "nation": "Germany",
+      "rating": 86,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0059",
+      "name": "Ederson",
+      "position": "GK",
+      "club": "Manchester City",
+      "nation": "Brazil",
+      "rating": 86,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0060",
+      "name": "Sergej Milinković-Savić",
+      "position": "CM",
+      "club": "Al Hilal",
+      "nation": "Serbia",
+      "rating": 86,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0061",
+      "name": "Jamal Musiala",
+      "position": "CAM",
+      "club": "Bayern München",
+      "nation": "Germany",
+      "rating": 86,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0062",
+      "name": "Bruno Guimarães",
+      "position": "CM",
+      "club": "Newcastle United",
+      "nation": "Brazil",
+      "rating": 86,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0063",
+      "name": "Jules Koundé",
+      "position": "CB",
+      "club": "FC Barcelona",
+      "nation": "France",
+      "rating": 86,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0064",
+      "name": "Manuel Akanji",
+      "position": "CB",
+      "club": "Manchester City",
+      "nation": "Switzerland",
+      "rating": 86,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0065",
+      "name": "Kyle Walker",
+      "position": "RB",
+      "club": "Manchester City",
+      "nation": "England",
+      "rating": 86,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0066",
+      "name": "Diogo Jota",
+      "position": "CF",
+      "club": "Liverpool",
+      "nation": "Portugal",
+      "rating": 85,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0067",
+      "name": "João Félix",
+      "position": "CF",
+      "club": "FC Barcelona",
+      "nation": "Portugal",
+      "rating": 85,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0068",
+      "name": "Mateo Kovačić",
+      "position": "CM",
+      "club": "Manchester City",
+      "nation": "Croatia",
+      "rating": 85,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0069",
+      "name": "Dušan Vlahović",
+      "position": "ST",
+      "club": "Juventus",
+      "nation": "Serbia",
+      "rating": 85,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0070",
+      "name": "Niklas Süle",
+      "position": "CB",
+      "club": "Borussia Dortmund",
+      "nation": "Germany",
+      "rating": 85,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0071",
+      "name": "Raphaël Varane",
+      "position": "CB",
+      "club": "Manchester United",
+      "nation": "France",
+      "rating": 85,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0072",
+      "name": "Adrien Rabiot",
+      "position": "CM",
+      "club": "Juventus",
+      "nation": "France",
+      "rating": 85,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0073",
+      "name": "Gabriel Jesus",
+      "position": "ST",
+      "club": "Arsenal",
+      "nation": "Brazil",
+      "rating": 85,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0074",
+      "name": "João Palhinha",
+      "position": "CDM",
+      "club": "Fulham",
+      "nation": "Portugal",
+      "rating": 85,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0075",
+      "name": "Reece James",
+      "position": "RB",
+      "club": "Chelsea",
+      "nation": "England",
+      "rating": 85,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0076",
+      "name": "Fikayo Tomori",
+      "position": "CB",
+      "club": "AC Milan",
+      "nation": "England",
+      "rating": 85,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0077",
+      "name": "Mason Mount",
+      "position": "CAM",
+      "club": "Manchester United",
+      "nation": "England",
+      "rating": 85,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0078",
+      "name": "Serge Gnabry",
+      "position": "RW",
+      "club": "Bayern München",
+      "nation": "Germany",
+      "rating": 85,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0079",
+      "name": "Romelu Lukaku",
+      "position": "ST",
+      "club": "Roma",
+      "nation": "Belgium",
+      "rating": 85,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0080",
+      "name": "Matthijs de Ligt",
+      "position": "CB",
+      "club": "Bayern München",
+      "nation": "Netherlands",
+      "rating": 85,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0081",
+      "name": "Alejandro Grimaldo",
+      "position": "LB",
+      "club": "Bayer Leverkusen",
+      "nation": "Spain",
+      "rating": 84,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0082",
+      "name": "Alessandro Bastoni",
+      "position": "CB",
+      "club": "Inter",
+      "nation": "Italy",
+      "rating": 84,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0083",
+      "name": "James Maddison",
+      "position": "CAM",
+      "club": "Tottenham Hotspur",
+      "nation": "England",
+      "rating": 84,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0084",
+      "name": "Cristian Romero",
+      "position": "CB",
+      "club": "Tottenham Hotspur",
+      "nation": "Argentina",
+      "rating": 84,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0085",
+      "name": "Thomas Müller",
+      "position": "CAM",
+      "club": "Bayern München",
+      "nation": "Germany",
+      "rating": 84,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0086",
+      "name": "Memphis Depay",
+      "position": "CF",
+      "club": "Atlético Madrid",
+      "nation": "Netherlands",
+      "rating": 84,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0087",
+      "name": "Gabriel Martinelli",
+      "position": "LW",
+      "club": "Arsenal",
+      "nation": "Brazil",
+      "rating": 84,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0088",
+      "name": "Manuel Locatelli",
+      "position": "CM",
+      "club": "Juventus",
+      "nation": "Italy",
+      "rating": 84,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0089",
+      "name": "Weston McKennie",
+      "position": "CM",
+      "club": "Juventus",
+      "nation": "United States",
+      "rating": 84,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0090",
+      "name": "Hakan Çalhanoğlu",
+      "position": "CM",
+      "club": "Inter",
+      "nation": "Turkey",
+      "rating": 84,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0091",
+      "name": "Leroy Sané",
+      "position": "RW",
+      "club": "Bayern München",
+      "nation": "Germany",
+      "rating": 84,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0092",
+      "name": "Alphonso Davies",
+      "position": "LB",
+      "club": "Bayern München",
+      "nation": "Canada",
+      "rating": 84,
+      "rarity": "Gold Rare",
+      "basePrice": 120000
+    },
+    {
+      "id": "fc26-0093",
+      "name": "Federico Chiesa",
+      "position": "RW",
+      "club": "Juventus",
+      "nation": "Italy",
+      "rating": 83,
+      "rarity": "Gold Rare",
+      "basePrice": 70000
+    },
+    {
+      "id": "fc26-0094",
+      "name": "Kai Havertz",
+      "position": "CAM",
+      "club": "Arsenal",
+      "nation": "Germany",
+      "rating": 83,
+      "rarity": "Gold Rare",
+      "basePrice": 70000
+    },
+    {
+      "id": "fc26-0095",
+      "name": "Marcos Llorente",
+      "position": "CM",
+      "club": "Atlético Madrid",
+      "nation": "Spain",
+      "rating": 83,
+      "rarity": "Gold Rare",
+      "basePrice": 70000
+    },
+    {
+      "id": "fc26-0096",
+      "name": "Mikel Merino",
+      "position": "CM",
+      "club": "Real Sociedad",
+      "nation": "Spain",
+      "rating": 83,
+      "rarity": "Gold Rare",
+      "basePrice": 70000
+    },
+    {
+      "id": "fc26-0097",
+      "name": "Gerard Moreno",
+      "position": "ST",
+      "club": "Villarreal",
+      "nation": "Spain",
+      "rating": 83,
+      "rarity": "Gold Rare",
+      "basePrice": 70000
+    },
+    {
+      "id": "fc26-0098",
+      "name": "Mikel Oyarzabal",
+      "position": "LW",
+      "club": "Real Sociedad",
+      "nation": "Spain",
+      "rating": 83,
+      "rarity": "Gold Rare",
+      "basePrice": 70000
+    },
+    {
+      "id": "fc26-0099",
+      "name": "Dominik Szoboszlai",
+      "position": "CAM",
+      "club": "Liverpool",
+      "nation": "Hungary",
+      "rating": 83,
+      "rarity": "Gold Rare",
+      "basePrice": 70000
+    },
+    {
+      "id": "fc26-0100",
+      "name": "Youri Tielemans",
+      "position": "CM",
+      "club": "Aston Villa",
+      "nation": "Belgium",
+      "rating": 83,
+      "rarity": "Gold Rare",
+      "basePrice": 70000
+    }
+  ],
+  "auctions": [],
+  "teams": [],
+  "teamBudgets": [],
+  "lots": [],
+  "bids": [],
+  "sales": [],
+  "auditLogs": [],
+  "basePriceTiers": [
+    {
+      "min": 90,
+      "max": 99,
+      "price": 300000
+    },
+    {
+      "min": 87,
+      "max": 89,
+      "price": 200000
+    },
+    {
+      "min": 84,
+      "max": 86,
+      "price": 120000
+    },
+    {
+      "min": 81,
+      "max": 83,
+      "price": 70000
+    },
+    {
+      "min": 78,
+      "max": 80,
+      "price": 40000
+    },
+    {
+      "min": 75,
+      "max": 77,
+      "price": 20000
+    },
+    {
+      "min": 0,
+      "max": 74,
+      "price": 10000
+    }
+  ]
+}

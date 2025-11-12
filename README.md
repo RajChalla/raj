@@ -68,6 +68,12 @@ From the `backend` directory run:
 npm install
 npm test
 ```
+docker compose up
+```
+
+The compose stack builds the API with no dependency downloads and serves the static frontend.
+
+### Environment Variables
 
 Tests cover base price tiers, bid validation rules, roster completion guard, and an end-to-end bidding flow.
 
